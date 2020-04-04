@@ -12,8 +12,11 @@ public class CabInvoiceGenerator {
     }
 
     //METHOD TO CALCULATE TOTAL FARE FOR JOURNEY
-    public double calculateTotalFare(double distanceInKm, int journeyTimeInMinutes) {
-        double totalFare = distanceInKm * COST_PER_KILOMETER + journeyTimeInMinutes * COST_PER_MINUTE;
+    public double calculateTotalFare(Rides[] rides) {
+        double totalFare = 0;
+        for (Rides ride : rides) {
+            totalFare += ride.distanceInKm * COST_PER_KILOMETER + ride.journeyTimeInMinutes * COST_PER_MINUTE;
+        }
         return Math.max(totalFare, MINIMUM_FARE);
     }
 }
