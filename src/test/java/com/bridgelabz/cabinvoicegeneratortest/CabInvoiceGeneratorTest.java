@@ -1,6 +1,7 @@
 package com.bridgelabz.cabinvoicegeneratortest;
 
 import com.bridgelabz.cabinvoicegenerator.CabInvoiceGenerator;
+import com.bridgelabz.cabinvoicegenerator.Rides;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,13 +10,22 @@ public class CabInvoiceGeneratorTest {
 
     @Test
     public void givenDistanceAndTime_GenerateTotalFare_ShouldReturnTheTotalFareForTheJourney() {
-        double totalFare = cabInvoiceGenerator.calculateTotalFare(10.55, 30);
+        Rides[]rides={new Rides(10.55,30)};
+        double totalFare = cabInvoiceGenerator.calculateTotalFare(rides);
         Assert.assertEquals(135.5, totalFare, 0);
     }
 
     @Test
     public void givenDistanceAndTime_WhenTotalFareLessThanMinimumFare_ShouldReturnFixedMinimumFare() {
-        double totalFare = cabInvoiceGenerator.calculateTotalFare(0.195, 2);
+        Rides[]rides={new Rides(0.195,2)};
+        double totalFare = cabInvoiceGenerator.calculateTotalFare(rides);
         Assert.assertEquals(5, totalFare, 0);
+    }
+
+    @Test
+    public void givenMultipleRides_GenerateTotalFare_ShouldReturnTheTotalFareForTheJourney() {
+        Rides[] rides = {new Rides(35.0,45),new Rides(10.55,30)};
+        double totalFare = cabInvoiceGenerator.calculateTotalFare(rides);
+        Assert.assertEquals(530.5,totalFare,0);
     }
 }
