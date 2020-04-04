@@ -12,4 +12,10 @@ public class CabInvoiceGeneratorTest {
         double totalFare = cabInvoiceGenerator.calculateTotalFare(10.55, 30);
         Assert.assertEquals(135.5, totalFare, 0);
     }
+
+    @Test
+    public void givenDistanceAndTime_WhenTotalFareLessThanMinimumFare_ShouldReturnFixedMinimumFare() {
+        double totalFare = cabInvoiceGenerator.calculateTotalFare(0.195, 2);
+        Assert.assertEquals(5, totalFare, 0);
+    }
 }
