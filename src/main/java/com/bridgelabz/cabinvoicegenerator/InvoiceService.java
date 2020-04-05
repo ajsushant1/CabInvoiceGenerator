@@ -1,6 +1,6 @@
 package com.bridgelabz.cabinvoicegenerator;
 
-public class CabInvoiceGenerator {
+public class InvoiceService {
 
     //CONSTANTS
     private static final double COST_PER_KILOMETER = 10;
@@ -8,7 +8,7 @@ public class CabInvoiceGenerator {
     private static final int MINIMUM_FARE = 5;
     RideRepository rideRepository;
 
-    public CabInvoiceGenerator() {
+    public InvoiceService() {
         this.rideRepository = new RideRepository();
     }
 
