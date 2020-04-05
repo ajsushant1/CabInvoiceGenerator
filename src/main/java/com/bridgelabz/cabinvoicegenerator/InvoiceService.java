@@ -6,6 +6,11 @@ public class CabInvoiceGenerator {
     private static final double COST_PER_KILOMETER = 10;
     private static final int COST_PER_MINUTE = 1;
     private static final int MINIMUM_FARE = 5;
+    RideRepository rideRepository;
+
+    public CabInvoiceGenerator() {
+        this.rideRepository = new RideRepository();
+    }
 
     public static void main(String[] args) {
         System.out.println("/**************************/ WELCOME TO CAB INVOICE GENERATOR /**************************/");
@@ -20,8 +25,15 @@ public class CabInvoiceGenerator {
         return Math.max(totalFare, MINIMUM_FARE);
     }
 
-    public InvoiceSummery getInvoiceSummery(Rides[] rides) {
-        double totalFare = calculateTotalFare(rides);
-        return new InvoiceSummery(rides.length, totalFare);
+    //METHOD TO GET INVOICE SUMMERY
+    public InvoiceSummery getInvoiceSummery(String userId) {
+        Rides[] rideList = rideRepository.getRideList(userId);
+        double totalFare = calculateTotalFare(rideList);
+        return new InvoiceSummery(rideList.length, totalFare);
+    }
+
+    //METHOD TO ADD RIDE LIST
+    public void addRides(String userId, Rides[] rides) {
+        rideRepository.addRide(userId, rides);
     }
 }

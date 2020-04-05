@@ -1,13 +1,13 @@
 package com.bridgelabz.cabinvoicegeneratortest;
 
-import com.bridgelabz.cabinvoicegenerator.CabInvoiceGenerator;
+import com.bridgelabz.cabinvoicegenerator.InvoiceService;
 import com.bridgelabz.cabinvoicegenerator.InvoiceSummery;
 import com.bridgelabz.cabinvoicegenerator.Rides;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class CabInvoiceGeneratorTest {
-    CabInvoiceGenerator cabInvoiceGenerator = new CabInvoiceGenerator();
+    InvoiceService cabInvoiceGenerator = new InvoiceService();
 
     @Test
     public void givenDistanceAndTime_GenerateTotalFare_ShouldReturnTheTotalFareForTheJourney() {
@@ -33,8 +33,18 @@ public class CabInvoiceGeneratorTest {
     @Test
     public void givenMultipleRides_GenerateTotalFare_ShouldReturnInvoiceSummery() {
         Rides[] rides = {new Rides(35.0, 45), new Rides(10.55, 30)};
-        InvoiceSummery invoiceSummery = cabInvoiceGenerator.getInvoiceSummery(rides);
+        cabInvoiceGenerator.addRides("user@1", rides);
+        InvoiceSummery invoiceSummery = cabInvoiceGenerator.getInvoiceSummery("user@1");
         InvoiceSummery expectedSummery = new InvoiceSummery(2, 530.5);
+        Assert.assertEquals(expectedSummery, invoiceSummery);
+    }
+
+    @Test
+    public void givenUserId_GenerateTotalFare_ShouldReturnInvoiceSummery() {
+        Rides[] rides = {new Rides(35.0, 45), new Rides(10.55, 30), new Rides(20, 30)};
+        cabInvoiceGenerator.addRides("user@1", rides);
+        InvoiceSummery invoiceSummery = cabInvoiceGenerator.getInvoiceSummery("user@1");
+        InvoiceSummery expectedSummery = new InvoiceSummery(3, 760.5);
         Assert.assertEquals(expectedSummery, invoiceSummery);
     }
 }
