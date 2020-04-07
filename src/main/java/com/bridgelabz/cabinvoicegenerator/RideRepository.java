@@ -11,7 +11,9 @@ public class RideRepository {
     }
 
     public void addRide(String userId, Rides[] rides) {
-        rideList.put(userId, rides);
+        Rides[] ridesList = rideList.get(userId);
+        if (ridesList == null)
+            rideList.put(userId, rides);
     }
 
     public Rides[] getRideList(String userId) {
