@@ -63,4 +63,16 @@ public class CabInvoiceGeneratorTest {
         InvoiceSummery invoiceSummery = cabInvoiceGenerator.getInvoiceSummery("user@45");
         Assert.assertEquals(383.25,invoiceSummery.totalFare,0);
     }
+
+    @Test
+    public void givenMultipleRidesOfTwoDifferentUser_GenerateTotalFareFirstUser_ShouldReturnInvoiceSummery() {
+        Rides[] firstUserRides = {new Rides(RideType.NORMAL,35.0, 45), new Rides(RideType.NORMAL,10.55, 30)};
+        cabInvoiceGenerator.addRides("user@1", firstUserRides);
+
+        Rides[] secondUserRides = {new Rides(RideType.PREMIUM,35.0, 45), new Rides(RideType.NORMAL,10.55, 30)};
+        cabInvoiceGenerator.addRides("user@2", secondUserRides);
+        InvoiceSummery invoiceSummery = cabInvoiceGenerator.getInvoiceSummery("user@1");
+        InvoiceSummery expectedSummery = new InvoiceSummery(2, 530.5);
+        Assert.assertEquals(expectedSummery, invoiceSummery);
+    }
 }
