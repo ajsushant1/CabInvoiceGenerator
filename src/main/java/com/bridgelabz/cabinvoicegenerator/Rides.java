@@ -10,8 +10,4 @@ public class Rides {
         this.distanceInKm = distanceInKm;
         this.journeyTimeInMinutes = journeyTimeInMinutes;
     }
-
-    public enum RideType {
-        PREMIUM, NORMAL
-    }
 }
